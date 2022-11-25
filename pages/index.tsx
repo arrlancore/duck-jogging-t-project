@@ -17,35 +17,15 @@ import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import Copyright from "../src/components/Copyright";
-import { mainListItems, secondaryListItems } from "../src/listItems";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Image from "next/image";
-import { logo } from "../src/assets";
 
-// export default function Home() {
-//   return (
-//     <Container maxWidth="sm">
-//       <Box sx={{ my: 4 }}>
-//         <Typography variant="h4" component="h1" gutterBottom>
-//           Next.js example
-//         </Typography>
-//         <div>
-//           {`Navbar`}
-//           {`Sidebar`}
-//           {/* {`Header`} */}
-//           {`Title`}
-//           {`PeriodFilter`}
-
-//           {/* {`MarketInsight`} */}
-//           {`SubTitle`}
-//           {`SalesTurnOver`}
-//           {`SummaryProduct`}
-//         </div>
-//         <Copyright />
-//       </Box>
-//     </Container>
-//   );
-// }
+import Copyright from "../src/components/Copyright";
+import { dashboard, logo } from "../src/assets";
+import { useRouter } from "next/router";
 
 const drawerWidth: number = 240;
 
@@ -103,7 +83,7 @@ function DashboardContent() {
     setOpen(!open);
   };
 
-  console.log(123, logo);
+  const router = useRouter();
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -114,27 +94,24 @@ function DashboardContent() {
             pr: "24px", // keep right padding when drawer closed
           }}
         >
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            onClick={toggleDrawer}
-            sx={{
-              marginRight: "36px",
-              ...(open && { display: "none" }),
-            }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            component="h1"
-            variant="h6"
-            color="inherit"
-            noWrap
-            sx={{ flexGrow: 1 }}
-          >
+          <Box sx={{ flexGrow: 1 }}>
             <Image {...logo} width="128" height="32" alt="brand" />
-          </Typography>
+            <Box
+              sx={{ padding: "0 0.5rem", display: "inline-flex", fontSize: 15 }}
+            >
+              powered by
+            </Box>
+            <Image
+              {...logo}
+              width="72"
+              height="18"
+              alt="powered-brand"
+              style={{
+                position: "relative",
+                top: 4,
+              }}
+            />
+          </Box>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
               <NotificationsIcon />
@@ -157,9 +134,25 @@ function DashboardContent() {
         </Toolbar>
         <Divider />
         <List component="nav">
-          {mainListItems}
-          <Divider sx={{ my: 1 }} />
-          {secondaryListItems}
+          <React.Fragment>
+            <ListItemButton onClick={toggleDrawer}>
+              <ListItemIcon>
+                <MenuIcon />
+              </ListItemIcon>
+              <ListItemText primary="Menu" />
+            </ListItemButton>
+            <ListItemButton onClick={() => router.push("/")}>
+              <ListItemIcon>
+                <Image
+                  {...dashboard}
+                  alt="menu-dashboard"
+                  width="24"
+                  height="24"
+                />
+              </ListItemIcon>
+              <ListItemText primary="Dashboard" />
+            </ListItemButton>
+          </React.Fragment>
         </List>
       </Drawer>
       <Box
