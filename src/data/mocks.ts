@@ -1,4 +1,6 @@
 import purchases from "./purchase.json";
+import productImage1 from "../assets/product1.jpeg";
+import productImage2 from "../assets/product2.jpeg";
 
 const userInfo = {
   username: "Joh Wick",
@@ -14,35 +16,35 @@ const salesTurnover = {
 const listSku = [
   {
     id: "product-sku-1",
-    img: "",
+    img: productImage1,
     productName: "Susu Bendera 200g",
     price: 20000,
     soldAmount: 123,
   },
   {
     id: "product-sku-2",
-    img: "",
+    img: productImage2,
     productName: "Susu Bendera 200g",
     price: 20000,
     soldAmount: 123,
   },
   {
     id: "product-sku-3",
-    img: "",
+    img: productImage1,
     productName: "Susu Bendera 200g",
     price: 20000,
     soldAmount: 123,
   },
   {
     id: "product-sku-4",
-    img: "",
+    img: productImage2,
     productName: "Susu Bendera 200g",
     price: 20000,
     soldAmount: 123,
   },
   {
     id: "product-sku-5",
-    img: "",
+    img: productImage1,
     productName: "Susu Bendera 200g",
     price: 20000,
     soldAmount: 123,

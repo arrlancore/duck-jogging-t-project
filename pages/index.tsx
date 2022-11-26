@@ -195,7 +195,12 @@ function DashboardContent() {
                     </Grid>
                     {/* Recent Orders */}
                     <Grid item xs={12}>
-                      <Grid container spacing={2}>
+                      <Grid
+                        flexWrap="wrap"
+                        alignItems="stretch"
+                        container
+                        spacing={2}
+                      >
                         <Grid item xs={12} md={6}>
                           <AveragePurchaseCard
                             data={createDataAPVChart(
@@ -205,18 +210,16 @@ function DashboardContent() {
                           />
                         </Grid>
                         <Grid item xs={12} md={3}>
-                          <ProductSKUCard />
+                          <ProductSKUCard
+                            title="BEST SELLING SKU"
+                            products={data?.listSku}
+                          />
                         </Grid>
                         <Grid item xs={12} md={3}>
-                          <Paper
-                            sx={{
-                              p: 2,
-                              display: "flex",
-                              flexDirection: "column",
-                            }}
-                          >
-                            {/* <Orders /> */}
-                          </Paper>
+                          <ProductSKUCard
+                            title="TOP COMPETITOR SKU"
+                            products={data?.listSku}
+                          />
                         </Grid>
                       </Grid>
                     </Grid>

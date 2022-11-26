@@ -53,7 +53,7 @@ const AveragePurchaseCard = ({ data }) => {
       <CardContent sx={{ paddingTop: 0 }}>
         <ComposedChart
           width={isMd ? 600 : 400}
-          height={300}
+          height={387}
           data={data}
           margin={{
             top: 20,
