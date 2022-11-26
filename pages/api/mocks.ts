@@ -2,7 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import data from "../../src/data/mocks";
 
-type T = {
+export type TMocks = {
   listSku: Array<{
     id: string;
     img: string;
@@ -28,6 +28,9 @@ type T = {
   }>;
 };
 
-export default function handler(req: NextApiRequest, res: NextApiResponse<T>) {
+export default function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<TMocks>
+) {
   res.status(200).json(data);
 }

@@ -22,10 +22,15 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import LogoutOutlined from "@mui/icons-material/LogoutOutlined";
+import Avatar from "@mui/material/Avatar";
 
 import Copyright from "../src/components/Copyright";
 import { dashboard, logo } from "../src/assets";
-import { useRouter } from "next/router";
+import useFetch from "../src/api/useFetch";
+import { TMocks } from "./api/mocks";
+import BackdropComponent from "../src/components/Backdrop";
 
 const drawerWidth: number = 240;
 
@@ -84,10 +89,12 @@ function DashboardContent() {
   };
 
   const router = useRouter();
+  const { data } = useFetch<TMocks>("/api/mocks");
 
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
+      <BackdropComponent open={!data} />
       <AppBar position="absolute" open={open}>
         <Toolbar
           sx={{
@@ -96,10 +103,10 @@ function DashboardContent() {
         >
           <Box sx={{ flexGrow: 1 }}>
             <Image {...logo} width="128" height="32" alt="brand" />
-            <Box
-              sx={{ padding: "0 0.5rem", display: "inline-flex", fontSize: 15 }}
-            >
-              powered by
+            <Box sx={{ padding: "0 0.5rem", display: "inline-flex" }}>
+              <Typography variant="subtitle2" color="#5B5B5B">
+                powered by
+              </Typography>
             </Box>
             <Image
               {...logo}
@@ -112,11 +119,22 @@ function DashboardContent() {
               }}
             />
           </Box>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
+          <>
+            <Box sx={{ textAlign: "right" }}>
+              <Typography variant="subtitle2" color="#727272">
+                Username
+              </Typography>
+              <Typography variant="caption" color="#727272">
+                Company Name
+              </Typography>
+            </Box>
+            <IconButton color="default">
+              <Avatar />
+            </IconButton>
+            <IconButton color="default">
+              <LogoutOutlined />
+            </IconButton>
+          </>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
