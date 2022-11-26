@@ -42,6 +42,8 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
+const captions = { poweredBy: "powered by" };
+
 const Navbar = (props: Props) => {
   return (
     <AppBar
@@ -58,7 +60,7 @@ const Navbar = (props: Props) => {
           <Image {...logo} width="128" height="32" alt="brand" />
           <Box sx={{ padding: "0 0.5rem", display: "inline-flex" }}>
             <Typography variant="subtitle2" color="text.secondary">
-              powered by
+              {captions.poweredBy}
             </Typography>
           </Box>
           <Image

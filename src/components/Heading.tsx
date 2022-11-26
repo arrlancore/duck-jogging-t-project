@@ -62,6 +62,10 @@ const filterVariants = [
   },
 ];
 
+const captions = {
+  period: "Period",
+};
+
 type HeadingProps = {
   expand: boolean;
   onToggle: () => void;
@@ -126,7 +130,7 @@ function DateFilterDialog({
           <Toolbar>
             <Image {...calendar} alt="calendar" />
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-              Period
+              {captions.period}
             </Typography>
             <IconButton
               edge="start"
@@ -226,7 +230,7 @@ const Heading = ({
             title={
               <Box>
                 <Typography color="text.secondary" variant="subtitle2">
-                  {`Period: ${formatDateForFilter(
+                  {`${captions.period}: ${formatDateForFilter(
                     dateRange.startDate
                   )} - ${formatDateForFilter(dateRange.endDate)}`}
                 </Typography>

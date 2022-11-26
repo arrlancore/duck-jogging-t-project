@@ -21,7 +21,13 @@ import {
 } from "recharts";
 import { TPurchaseChart } from "../utils";
 
-const AveragePurchaseCard = ({ data }: { data: TPurchaseChart[] }) => {
+const AveragePurchaseCard = ({
+  data,
+  title,
+}: {
+  data: TPurchaseChart[];
+  title: string;
+}) => {
   const isMd = useMediaQuery("(min-width:1000px)");
 
   return (
@@ -37,7 +43,7 @@ const AveragePurchaseCard = ({ data }: { data: TPurchaseChart[] }) => {
             </IconButton>
           </>
         }
-        title="AVERAGE PURCHASE VALUE"
+        title={title}
         titleTypographyProps={{ sx: { fontSize: "20px" } }}
       />
       <CardContent sx={{ paddingTop: 0 }}>

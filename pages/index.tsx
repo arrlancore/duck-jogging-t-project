@@ -35,6 +35,7 @@ const captions = {
   marketInsight: "MARKET INSIGHT",
   bestSellingSku: "BEST SELLING SKU",
   topCompetitorSku: "TOP COMPETITOR SKU",
+  avgPurchaseValue: "AVERAGE PURCHASE VALUE",
 };
 
 const DashboardContent = () => {
@@ -152,6 +153,7 @@ const DashboardContent = () => {
                       >
                         <Grid item xs={12} md={6}>
                           <AveragePurchaseCard
+                            title={captions.avgPurchaseValue}
                             data={createDataAPVChart(
                               data?.purchases ?? [],
                               dateRanges

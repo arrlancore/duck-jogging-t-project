@@ -12,6 +12,8 @@ import Typography from "@mui/material/Typography";
 import { formatPrice } from "../utils";
 import { TProductSKU } from "../commonsType";
 
+const captions = { sold: "terjual" };
+
 const ProductSKUCard = ({
   products,
   title,
@@ -90,7 +92,7 @@ const ProductSKUCard = ({
                         variant="body2"
                         color="text.secondary"
                       >
-                        {`(${product.soldAmount} terjual)`}
+                        {`(${product.soldAmount} ${captions.sold})`}
                       </Typography>
                     </Box>
                   }

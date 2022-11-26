@@ -15,6 +15,8 @@ type Props = {
   status: string;
 };
 
+const captions = { title: "Sales Turnover" };
+
 const SalesTurnover = (props: Props) => {
   return (
     <Card sx={{ minWidth: 330 }}>
@@ -24,7 +26,7 @@ const SalesTurnover = (props: Props) => {
             <MoreVert />
           </IconButton>
         }
-        subheader="Sales Turnover"
+        subheader={captions.title}
       />
       <CardContent sx={{ paddingTop: 0 }}>
         <Grid container>
