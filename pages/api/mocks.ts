@@ -2,7 +2,15 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import data from "../../src/data/mocks";
 
-export type TMocks = {
+export type TPurchase = {
+  date: string;
+  apv: number;
+  net: number;
+  gross: number;
+  upt: number;
+};
+
+export type TMocksResponse = {
   listSku: Array<{
     id: string;
     img: string;
@@ -19,18 +27,12 @@ export type TMocks = {
     username: string;
     companyName: string;
   };
-  purchase: Array<{
-    date: string;
-    apv: number;
-    net: number;
-    gross: number;
-    upt: number;
-  }>;
+  purchases: Array<TPurchase>;
 };
 
 export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse<TMocks>
+  res: NextApiResponse<TMocksResponse>
 ) {
   res.status(200).json(data);
 }

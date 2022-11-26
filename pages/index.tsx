@@ -27,12 +27,22 @@ import { useRouter } from "next/router";
 import Copyright from "../src/components/Copyright";
 import { dashboard, logo } from "../src/assets";
 import useFetch from "../src/api/useFetch";
-import { TMocks } from "./api/mocks";
+import { TMocks, TMocksResponse, TPurchase } from "./api/mocks";
 import BackdropComponent from "../src/components/Backdrop";
 import Navbar from "../src/components/Navbar";
 import Sidebar from "../src/components/Sidebar";
 import Heading from "../src/components/Heading";
-import { addDays } from "date-fns";
+import { addDays, format, isAfter, isBefore, isEqual } from "date-fns";
+import SalesTurnover from "../src/components/SalesTurnoverCard";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Alert,
+} from "@mui/material";
+import { ExpandMore } from "@mui/icons-material";
+import AveragePurchaseCard from "../src/components/AveragePurchaseCard";
+import ProductSKUCard from "../src/components/ProductSkuCard";
 
 const drawerWidth: number = 240;
 
@@ -62,6 +72,24 @@ const Drawer = styled(MuiDrawer, {
   },
 }));
 
+function createDataAPVChart(list: TPurchase[], { startDate, endDate }) {
+  type TPurchaseChart = TPurchase & { name: string };
+
+  const purchaseList: TPurchaseChart[] = [];
+  for (let i = 0; i < list.length; i++) {
+    const data = list[i];
+    const target = new Date(data.date);
+    if (
+      (isAfter(target, startDate) || isEqual(target, startDate)) &&
+      (isBefore(target, endDate) || isEqual(target, endDate))
+    ) {
+      purchaseList.push({ ...data, name: format(target, "dd/MM/yyyy") });
+    }
+  }
+
+  return purchaseList;
+}
+
 function DashboardContent() {
   const [open, setOpen] = React.useState(false);
   const [expandFilter, setExpandFilter] = React.useState(false);
@@ -70,7 +98,7 @@ function DashboardContent() {
     startDate: addDays(new Date(), -7),
   });
   const router = useRouter();
-  const { data } = useFetch<TMocks>("/api/mocks");
+  const { data } = useFetch<TMocksResponse>("/api/mocks");
 
   const toggleDrawer = () => {
     setOpen((prev) => !prev);
@@ -126,7 +154,11 @@ function DashboardContent() {
         }}
       >
         <Toolbar />
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+
+        <Container
+          maxWidth="xl"
+          sx={{ mt: 4, mb: 4, minHeight: "calc(100% - 164px)" }}
+        >
           <Heading
             expand={expandFilter}
             onToggle={() => setExpandFilter((prev) => !prev)}
@@ -134,40 +166,65 @@ function DashboardContent() {
             dateRange={dateRanges}
           />
           <Grid container spacing={3}>
-            {/* Chart */}
-            <Grid item xs={12} md={8} lg={9}>
-              <Paper
-                sx={{
-                  p: 2,
-                  display: "flex",
-                  flexDirection: "column",
-                  height: 240,
-                }}
+            <Grid xs={12} sx={{ paddingLeft: "24px", paddingTop: "24px" }}>
+              <Accordion
+                defaultExpanded
+                sx={{ background: "transparent", boxShadow: "none" }}
               >
-                {/* <Chart /> */}
-              </Paper>
-            </Grid>
-            {/* Recent Deposits */}
-            <Grid item xs={12} md={4} lg={3}>
-              <Paper
-                sx={{
-                  p: 2,
-                  display: "flex",
-                  flexDirection: "column",
-                  height: 240,
-                }}
-              >
-                {/* <Deposits /> */}
-              </Paper>
-            </Grid>
-            {/* Recent Orders */}
-            <Grid item xs={12}>
-              <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                {/* <Orders /> */}
-              </Paper>
+                <AccordionSummary
+                  sx={{ background: "#37B04C" }}
+                  expandIcon={<ExpandMore color="primary" />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                >
+                  <Typography
+                    fontWeight={"bold"}
+                    fontSize={"20px"}
+                    variant="h3"
+                    color={"white"}
+                  >
+                    MARKET INSIGHT
+                  </Typography>
+                </AccordionSummary>
+                <AccordionDetails
+                  sx={{ background: "transparent", padding: "24px 0" }}
+                >
+                  <Grid container spacing={3}>
+                    <Grid item xs={12} md={4} lg={3}>
+                      <SalesTurnover />
+                    </Grid>
+                    {/* Recent Orders */}
+                    <Grid item xs={12}>
+                      <Grid container spacing={2}>
+                        <Grid item xs={12} md={6}>
+                          <AveragePurchaseCard
+                            data={createDataAPVChart(
+                              data?.purchases ?? [],
+                              dateRanges
+                            )}
+                          />
+                        </Grid>
+                        <Grid item xs={12} md={3}>
+                          <ProductSKUCard />
+                        </Grid>
+                        <Grid item xs={12} md={3}>
+                          <Paper
+                            sx={{
+                              p: 2,
+                              display: "flex",
+                              flexDirection: "column",
+                            }}
+                          >
+                            {/* <Orders /> */}
+                          </Paper>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </AccordionDetails>
+              </Accordion>
             </Grid>
           </Grid>
-          <Copyright sx={{ pt: 4 }} />
         </Container>
       </Box>
     </Box>

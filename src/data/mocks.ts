@@ -1,4 +1,4 @@
-import purchase from "./purchase.json";
+import purchases from "./purchase.json";
 
 const userInfo = {
   username: "Joh Wick",
@@ -53,7 +53,7 @@ const mocks = {
   listSku,
   salesTurnover,
   userInfo,
-  purchase,
+  purchases,
 };
 
 export default mocks;

@@ -61,7 +61,7 @@ const Navbar = (props: Props) => {
         <Box sx={{ flexGrow: 1 }}>
           <Image {...logo} width="128" height="32" alt="brand" />
           <Box sx={{ padding: "0 0.5rem", display: "inline-flex" }}>
-            <Typography variant="subtitle2" color="#5B5B5B">
+            <Typography variant="subtitle2" color="text.secondary">
               powered by
             </Typography>
           </Box>
@@ -78,10 +78,10 @@ const Navbar = (props: Props) => {
         </Box>
         <>
           <Box sx={{ textAlign: "right" }}>
-            <Typography variant="subtitle2" color="#727272">
+            <Typography variant="subtitle2" color="text.secondary">
               {props.userInfo?.username}
             </Typography>
-            <Typography variant="caption" color="#727272">
+            <Typography variant="caption" color="text.secondary">
               {props.userInfo?.companyName}
             </Typography>
           </Box>

@@ -253,7 +253,7 @@ const Heading = ({ expand, onToggle, onFilterChange, dateRange }) => {
             }
             title={
               <Box>
-                <Typography color="#6A6A6A" variant="subtitle2">
+                <Typography color="text.secondary" variant="subtitle2">
                   {`Period: ${formatDate(dateRange.startDate)} - ${formatDate(
                     dateRange.endDate
                   )}`}
