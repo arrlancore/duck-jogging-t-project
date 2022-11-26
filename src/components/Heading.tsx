@@ -1,32 +1,16 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/system/Box";
-import {
-  Avatar,
-  Container,
-  Grid,
-  IconButton,
-  ListItemButton,
-  TextField,
-} from "@mui/material";
-import {
-  ExpandLess,
-  ExpandMore,
-  MoreVert,
-  SpaceBar,
-} from "@mui/icons-material";
+import { Container, Grid, IconButton, ListItemButton } from "@mui/material";
+import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import constants from "../constants";
 import Image from "next/image";
 import { calendar } from "../assets";
-
 import Dialog from "@mui/material/Dialog";
 import ListItemText from "@mui/material/ListItemText";
-import ListItem from "@mui/material/ListItem";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import AppBar from "@mui/material/AppBar";
@@ -34,8 +18,7 @@ import Toolbar from "@mui/material/Toolbar";
 import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
-import { addDays, addMonths, startOfMonth, format } from "date-fns";
-import { DateRangePicker, Calendar, RangeKeyDict } from "react-date-range";
+import { DateRangePicker, RangeKeyDict } from "react-date-range";
 import {
   formatDateForFilter,
   getCurrentDateArray,
@@ -84,6 +67,7 @@ type HeadingProps = {
   onToggle: () => void;
   onFilterChange: (arg: DateRange) => void;
   dateRange: DateRange;
+  title: string;
 };
 
 type DateFilterDialogProps = {
@@ -208,13 +192,14 @@ const Heading = ({
   onToggle,
   onFilterChange,
   dateRange,
+  title,
 }: HeadingProps) => {
   return (
     <Box
       sx={{
         display: "flex",
         justifyContent: "space-between",
-        marginBottom: constants.spaceBottom,
+        marginBottom: "36px",
       }}
     >
       <Typography
@@ -226,7 +211,7 @@ const Heading = ({
         color="#707070C4"
         gutterBottom
       >
-        Dashboard
+        {title}
       </Typography>
 
       <Box>

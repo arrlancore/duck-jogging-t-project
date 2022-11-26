@@ -29,7 +29,15 @@ import { DateRange } from "../src/commonsType";
 
 const drawerWidth: number = 240;
 
-function DashboardContent() {
+const captions = {
+  title: "Dashboard",
+  menu: "Menu",
+  marketInsight: "MARKET INSIGHT",
+  bestSellingSku: "BEST SELLING SKU",
+  topCompetitorSku: "TOP COMPETITOR SKU",
+};
+
+const DashboardContent = () => {
   const [open, setOpen] = React.useState(false);
   const [expandFilter, setExpandFilter] = React.useState(false);
   const [dateRanges, setDateRanges] = React.useState<DateRange>({
@@ -62,7 +70,7 @@ function DashboardContent() {
             <ListItemIcon>
               <MenuIcon />
             </ListItemIcon>
-            <ListItemText primary="Menu" />
+            <ListItemText primary={captions.menu} />
           </ListItemButton>
           <ListItemButton
             selected // TODO: make it dynamic when we have more menu
@@ -76,7 +84,7 @@ function DashboardContent() {
                 height="24"
               />
             </ListItemIcon>
-            <ListItemText primary="Dashboard" />
+            <ListItemText primary={captions.title} />
           </ListItemButton>
         </List>
       </Sidebar>
@@ -99,6 +107,7 @@ function DashboardContent() {
             onToggle={() => setExpandFilter((prev) => !prev)}
             onFilterChange={onDateRangeChange}
             dateRange={dateRanges}
+            title={captions.title}
           />
           <Grid container spacing={3}>
             <Grid xs={12} sx={{ paddingLeft: "24px", paddingTop: "24px" }}>
@@ -119,7 +128,7 @@ function DashboardContent() {
                     variant="h3"
                     color={"white"}
                   >
-                    MARKET INSIGHT
+                    {captions.marketInsight}
                   </Typography>
                 </AccordionSummary>
                 <AccordionDetails
@@ -151,13 +160,13 @@ function DashboardContent() {
                         </Grid>
                         <Grid item xs={12} md={3}>
                           <ProductSKUCard
-                            title="BEST SELLING SKU"
+                            title={captions.bestSellingSku}
                             products={data?.listSku ?? []}
                           />
                         </Grid>
                         <Grid item xs={12} md={3}>
                           <ProductSKUCard
-                            title="TOP COMPETITOR SKU"
+                            title={captions.topCompetitorSku}
                             products={data?.listSku ?? []}
                           />
                         </Grid>
@@ -172,6 +181,6 @@ function DashboardContent() {
       </Box>
     </Box>
   );
-}
+};
 
 export default DashboardContent;

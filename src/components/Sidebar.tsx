@@ -1,4 +1,3 @@
-import { Menu } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
 import ChevronLeft from "@mui/icons-material/ChevronLeft";
 import {
@@ -6,13 +5,8 @@ import {
   Drawer as MuiDrawer,
   DrawerProps as MuiDrawerProps,
   IconButton,
-  List,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
   Toolbar,
 } from "@mui/material";
-import Image from "next/image";
 import React from "react";
 
 interface DrawerProps extends MuiDrawerProps {

@@ -1,11 +1,9 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { Avatar, CardHeader, Grid, IconButton } from "@mui/material";
+import { CardHeader, Grid, IconButton } from "@mui/material";
 import { MoreVert } from "@mui/icons-material";
 import Image from "next/image";
 import { downArrow, salesTurnover } from "../assets";

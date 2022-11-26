@@ -7,8 +7,7 @@ import {
   addDays,
   startOfMonth,
 } from "date-fns";
-import { TPurchase } from "../pages/api/mocks";
-import { DateRange } from "./commonsType";
+import { DateRange, TPurchase } from "./commonsType";
 
 export type TPurchaseChart = TPurchase & { name: string };
 

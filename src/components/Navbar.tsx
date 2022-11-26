@@ -10,8 +10,8 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Image from "next/image";
-import { TUserInfo } from "../../pages/api/mocks";
 import { logo } from "../assets";
+import { TUserInfo } from "../commonsType";
 
 type Props = {
   userInfo?: TUserInfo;

@@ -1,7 +1,8 @@
 import purchases from "./purchase.json";
 import productImage1 from "../assets/product1.jpeg";
 import productImage2 from "../assets/product2.jpeg";
-import { TProductSKU, TMocksResponse } from "../../pages/api/mocks";
+import { TMocksResponse } from "../../pages/api/mocks";
+import { TProductSKU } from "../commonsType";
 
 const userInfo = {
   username: "Don Wick",
