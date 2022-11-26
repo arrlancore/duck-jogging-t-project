@@ -87,7 +87,10 @@ function DashboardContent() {
             </ListItemIcon>
             <ListItemText primary="Menu" />
           </ListItemButton>
-          <ListItemButton onClick={() => router.push("/")}>
+          <ListItemButton
+            sx={{ background: "#D2D2D2" }} // TODO: make it dynamic when we have more menu
+            onClick={() => router.push("/")}
+          >
             <ListItemIcon>
               <Image
                 {...dashboard}
