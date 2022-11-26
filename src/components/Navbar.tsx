@@ -9,7 +9,6 @@ import {
   Avatar,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
-
 import Image from "next/image";
 import { logo } from "../assets";
 

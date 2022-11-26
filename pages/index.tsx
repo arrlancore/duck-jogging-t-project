@@ -1,9 +1,8 @@
 import * as React from "react";
-import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
@@ -32,6 +31,7 @@ import useFetch from "../src/api/useFetch";
 import { TMocks } from "./api/mocks";
 import BackdropComponent from "../src/components/Backdrop";
 import Navbar from "../src/components/Navbar";
+import Sidebar from "../src/components/Sidebar";
 
 const drawerWidth: number = 240;
 
@@ -75,42 +75,31 @@ function DashboardContent() {
       <CssBaseline />
       <BackdropComponent open={!data} />
       <Navbar open={open} drawerWidth={drawerWidth} userInfo={data?.userInfo} />
-      <Drawer variant="permanent" open={open}>
-        <Toolbar
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "flex-end",
-            px: [1],
-          }}
-        >
-          <IconButton onClick={toggleDrawer}>
-            <ChevronLeftIcon />
-          </IconButton>
-        </Toolbar>
-        <Divider />
+      <Sidebar
+        drawerWidth={drawerWidth}
+        open={open}
+        toggleDrawer={toggleDrawer}
+      >
         <List component="nav">
-          <React.Fragment>
-            <ListItemButton onClick={toggleDrawer}>
-              <ListItemIcon>
-                <MenuIcon />
-              </ListItemIcon>
-              <ListItemText primary="Menu" />
-            </ListItemButton>
-            <ListItemButton onClick={() => router.push("/")}>
-              <ListItemIcon>
-                <Image
-                  {...dashboard}
-                  alt="menu-dashboard"
-                  width="24"
-                  height="24"
-                />
-              </ListItemIcon>
-              <ListItemText primary="Dashboard" />
-            </ListItemButton>
-          </React.Fragment>
+          <ListItemButton onClick={toggleDrawer}>
+            <ListItemIcon>
+              <MenuIcon />
+            </ListItemIcon>
+            <ListItemText primary="Menu" />
+          </ListItemButton>
+          <ListItemButton onClick={() => router.push("/")}>
+            <ListItemIcon>
+              <Image
+                {...dashboard}
+                alt="menu-dashboard"
+                width="24"
+                height="24"
+              />
+            </ListItemIcon>
+            <ListItemText primary="Dashboard" />
+          </ListItemButton>
         </List>
-      </Drawer>
+      </Sidebar>
       <Box
         component="main"
         sx={{
