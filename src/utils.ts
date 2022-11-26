@@ -8,13 +8,14 @@ import {
   startOfMonth,
 } from "date-fns";
 import { TPurchase } from "../pages/api/mocks";
+import { DateRange } from "./commonsType";
+
+export type TPurchaseChart = TPurchase & { name: string };
 
 export function createDataAPVChart(
   list: TPurchase[],
   { startDate, endDate }: { startDate: Date; endDate: Date }
 ) {
-  type TPurchaseChart = TPurchase & { name: string };
-
   const purchaseList: TPurchaseChart[] = [];
   for (let i = 0; i < list.length; i++) {
     const data = list[i];
@@ -43,33 +44,51 @@ export function getCurrentDateArray() {
   return [date.getFullYear(), date.getMonth(), date.getDate()];
 }
 
-export function getPredefinedRanges(currentDate = [2022, 1, 1]) {
-  const dataRanges = {
+type TPredefinedConfig = {
+  minDate: Date;
+  maxDate: Date;
+};
+
+type TPredefinedRange = {
+  [key: string]: DateRange;
+};
+
+export type TPredefinedRanges = {
+  ranges: {
+    [key: string]: TPredefinedRange | {};
+  };
+  config: TPredefinedConfig;
+};
+
+export function getPredefinedRanges([year, month, day] = [2022, 1, 1]) {
+  const dataRanges: TPredefinedRanges = {
     config: {
-      minDate: addMonths(new Date(...currentDate), -6),
+      minDate: addMonths(new Date(year, month, day), -6),
       maxDate: new Date(),
     },
-    today: {
-      startDate: new Date(...currentDate),
-      endDate: new Date(...currentDate),
+    ranges: {
+      today: {
+        startDate: new Date(year, month, day),
+        endDate: new Date(year, month, day),
+      },
+      yesterday: {
+        startDate: addDays(new Date(year, month, day), -1),
+        endDate: addDays(new Date(year, month, day), -1),
+      },
+      last7: {
+        startDate: addDays(new Date(year, month, day), -7),
+        endDate: new Date(year, month, day),
+      },
+      last30: {
+        startDate: addDays(new Date(year, month, day), -30),
+        endDate: new Date(year, month, day),
+      },
+      this_month: {
+        startDate: startOfMonth(new Date(year, month, day)),
+        endDate: new Date(year, month, day),
+      },
+      custom: {},
     },
-    yesterday: {
-      startDate: addDays(new Date(...currentDate), -1),
-      endDate: addDays(new Date(...currentDate), -1),
-    },
-    last7: {
-      startDate: addDays(new Date(...currentDate), -7),
-      endDate: new Date(...currentDate),
-    },
-    last30: {
-      startDate: addDays(new Date(...currentDate), -30),
-      endDate: new Date(...currentDate),
-    },
-    this_month: {
-      startDate: startOfMonth(new Date(...currentDate)),
-      endDate: new Date(...currentDate),
-    },
-    custom: {},
   };
 
   return dataRanges;

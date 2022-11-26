@@ -31,12 +31,9 @@ import {
   ComposedChart,
 } from "recharts";
 import { TPurchase } from "../../pages/api/mocks";
+import { TPurchaseChart } from "../utils";
 
-type Props = {
-  data: TPurchase & { name: string };
-};
-
-const AveragePurchaseCard = ({ data }: Props) => {
+const AveragePurchaseCard = ({ data }: { data: TPurchaseChart[] }) => {
   const isMd = useMediaQuery("(min-width:1000px)");
 
   return (

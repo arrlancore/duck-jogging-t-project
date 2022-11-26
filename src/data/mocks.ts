@@ -1,6 +1,7 @@
 import purchases from "./purchase.json";
 import productImage1 from "../assets/product1.jpeg";
 import productImage2 from "../assets/product2.jpeg";
+import { TProductSKU, TMocksResponse } from "../../pages/api/mocks";
 
 const userInfo = {
   username: "Don Wick",
@@ -13,7 +14,7 @@ const salesTurnover = {
   status: "down",
 };
 
-const listSku = [
+const listSku: TProductSKU[] = [
   {
     id: "product-sku-1",
     img: productImage1,
@@ -51,7 +52,7 @@ const listSku = [
   },
 ];
 
-const mocks = {
+const mocks: TMocksResponse = {
   listSku,
   salesTurnover,
   userInfo,

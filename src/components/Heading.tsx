@@ -35,12 +35,13 @@ import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
 import { addDays, addMonths, startOfMonth, format } from "date-fns";
-import { DateRangePicker, Calendar } from "react-date-range";
+import { DateRangePicker, Calendar, RangeKeyDict } from "react-date-range";
 import {
   formatDateForFilter,
   getCurrentDateArray,
   getPredefinedRanges,
 } from "../utils";
+import { DateRange } from "../commonsType";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -78,22 +79,17 @@ const filterVariants = [
   },
 ];
 
-type DateRange = {
-  startDate: Date;
-  endDate: Date;
-};
-
 type HeadingProps = {
   expand: boolean;
   onToggle: () => void;
-  onFilterChange: (DateRange) => void;
+  onFilterChange: (arg: DateRange) => void;
   dateRange: DateRange;
 };
 
 type DateFilterDialogProps = {
   open: boolean;
   onToggle: () => void;
-  onFilterChange: (DateRange) => void;
+  onFilterChange: (arg: DateRange) => void;
   defaultDateRange: DateRange;
 };
 
@@ -110,21 +106,27 @@ function DateFilterDialog({
       ...defaultDateRange,
     },
   ]);
-  const currentDate = getCurrentDateArray();
-  const ranges = getPredefinedRanges(currentDate);
+  const [year, month, day] = getCurrentDateArray();
+  const predefinedRanges = getPredefinedRanges([year, month, day]);
 
-  const onDateRangeChange = (item) => {
-    setDateRanges([item.selection]);
+  const onDateRangeChange = (item: RangeKeyDict) => {
+    setDateRanges([
+      {
+        startDate: item.selection.startDate || new Date(),
+        endDate: item.selection.endDate || new Date(),
+        key: item.selection.key || "",
+      },
+    ]);
     if (filterType !== "custom") {
       setFilterType("custom");
     }
   };
 
-  const onDateRangeChangeApplied = ({ startDate, endDate }) =>
+  const onDateRangeChangeApplied = ({ startDate, endDate }: DateRange) =>
     onFilterChange({ startDate, endDate });
 
   useEffect(() => {
-    const range = ranges[filterType];
+    const range = predefinedRanges.ranges[filterType];
     setDateRanges((prev) => [{ ...prev[0], ...range }]);
   }, [filterType]);
 
@@ -187,13 +189,12 @@ function DateFilterDialog({
           <Grid>
             <DateRangePicker
               onChange={onDateRangeChange}
-              showSelectionPreview={true}
               moveRangeOnFirstSelection={false}
               months={2}
               ranges={dateRanges}
               direction="horizontal"
-              minDate={ranges.config.minDate}
-              maxDate={ranges.config.maxDate}
+              minDate={predefinedRanges.config.minDate}
+              maxDate={predefinedRanges.config.maxDate}
             />
           </Grid>
         </Grid>

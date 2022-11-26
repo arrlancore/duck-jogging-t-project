@@ -30,7 +30,7 @@ const SalesTurnover = (props: Props) => {
       />
       <CardContent sx={{ paddingTop: 0 }}>
         <Grid container>
-          <Grid xs="9">
+          <Grid item>
             {/* <Image /> */}
             <Typography color="text.secondary" fontWeight="bold" variant="h4">
               {formatPrice(props.total)}
@@ -51,11 +51,12 @@ const SalesTurnover = (props: Props) => {
           </Grid>
 
           <Grid
-            xs="3"
+            item
             sx={{
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
+              pl: "10px",
             }}
           >
             <Image {...salesTurnover} alt="sales-turnover" />

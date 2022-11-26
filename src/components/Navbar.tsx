@@ -10,15 +10,11 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Image from "next/image";
+import { TUserInfo } from "../../pages/api/mocks";
 import { logo } from "../assets";
 
-type userInfo = {
-  userName: string;
-  companyName: string;
-};
-
 type Props = {
-  userInfo?: userInfo;
+  userInfo?: TUserInfo;
   open: boolean;
   drawerWidth: number;
 };

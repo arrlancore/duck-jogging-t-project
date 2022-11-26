@@ -1,30 +1,24 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
-import {
-  Avatar,
-  CardHeader,
-  Grid,
-  IconButton,
-  MenuItem,
-  Select,
-  useMediaQuery,
-} from "@mui/material";
+import { CardHeader, IconButton } from "@mui/material";
 import { MoreVert } from "@mui/icons-material";
 import Image from "next/image";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import Divider from "@mui/material/Divider";
 import ListItemText from "@mui/material/ListItemText";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Typography from "@mui/material/Typography";
-import { downArrow, salesTurnover } from "../assets";
+import { TProductSKU } from "../../pages/api/mocks";
 import { formatPrice } from "../utils";
 
-const ProductSKUCard = ({ products, title }) => {
+const ProductSKUCard = ({
+  products,
+  title,
+}: {
+  products: TProductSKU[];
+  title: string;
+}) => {
   return (
     <Card sx={{ width: "100%" }}>
       <CardHeader
@@ -59,7 +53,7 @@ const ProductSKUCard = ({ products, title }) => {
             },
           }}
         >
-          {products?.map((product) => (
+          {products?.map((product: TProductSKU) => (
             <React.Fragment key={product.id}>
               <ListItem
                 alignItems="flex-start"
@@ -74,7 +68,7 @@ const ProductSKUCard = ({ products, title }) => {
                   style={{ marginRight: "6px" }}
                   src={product.img}
                   width="60"
-                  height="auto"
+                  height="60"
                   alt="product"
                 />
                 <ListItemText

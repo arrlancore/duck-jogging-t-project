@@ -1,56 +1,38 @@
 import * as React from "react";
-import { styled } from "@mui/material/styles";
-import MuiDrawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
-import Badge from "@mui/material/Badge";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
-import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import NotificationsIcon from "@mui/icons-material/Notifications";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import LogoutOutlined from "@mui/icons-material/LogoutOutlined";
-import Avatar from "@mui/material/Avatar";
 import Image from "next/image";
 import { useRouter } from "next/router";
-
-import Copyright from "../src/components/Copyright";
-import { dashboard, logo } from "../src/assets";
+import { dashboard } from "../src/assets";
 import useFetch from "../src/api/useFetch";
-import { TMocks, TMocksResponse, TPurchase } from "./api/mocks";
+import { TMocksResponse } from "./api/mocks";
 import BackdropComponent from "../src/components/Backdrop";
 import Navbar from "../src/components/Navbar";
 import Sidebar from "../src/components/Sidebar";
 import Heading from "../src/components/Heading";
-import { addDays, format, isAfter, isBefore, isEqual } from "date-fns";
+import { addDays } from "date-fns";
 import SalesTurnover from "../src/components/SalesTurnoverCard";
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Alert,
-} from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";
 import AveragePurchaseCard from "../src/components/AveragePurchaseCard";
 import ProductSKUCard from "../src/components/ProductSkuCard";
 import { createDataAPVChart } from "../src/utils";
+import { DateRange } from "../src/commonsType";
 
 const drawerWidth: number = 240;
 
 function DashboardContent() {
   const [open, setOpen] = React.useState(false);
   const [expandFilter, setExpandFilter] = React.useState(false);
-  const [dateRanges, setDateRanges] = React.useState({
+  const [dateRanges, setDateRanges] = React.useState<DateRange>({
     endDate: new Date(),
     startDate: addDays(new Date(), -7),
   });
@@ -61,7 +43,7 @@ function DashboardContent() {
     setOpen((prev) => !prev);
   };
 
-  const onDateRangeChange = (newRange) => {
+  const onDateRangeChange = (newRange: DateRange) => {
     setExpandFilter(false);
     setDateRanges(newRange);
   };
@@ -145,7 +127,11 @@ function DashboardContent() {
                 >
                   <Grid container spacing={3}>
                     <Grid item xs={12} md={4} lg={3}>
-                      <SalesTurnover {...data?.salesTurnover} />
+                      <SalesTurnover
+                        total={data?.salesTurnover.total ?? 0}
+                        percentage={data?.salesTurnover.percentage ?? 0}
+                        status={data?.salesTurnover.status ?? ""}
+                      />
                     </Grid>
                     {/* Recent Orders */}
                     <Grid item xs={12}>
@@ -166,13 +152,13 @@ function DashboardContent() {
                         <Grid item xs={12} md={3}>
                           <ProductSKUCard
                             title="BEST SELLING SKU"
-                            products={data?.listSku}
+                            products={data?.listSku ?? []}
                           />
                         </Grid>
                         <Grid item xs={12} md={3}>
                           <ProductSKUCard
                             title="TOP COMPETITOR SKU"
-                            products={data?.listSku}
+                            products={data?.listSku ?? []}
                           />
                         </Grid>
                       </Grid>

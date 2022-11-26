@@ -1,5 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
+import { StaticImageData } from "next/image";
 import data from "../../src/data/mocks";
 
 export type TPurchase = {
@@ -10,23 +11,27 @@ export type TPurchase = {
   upt: number;
 };
 
+export type TUserInfo = {
+  username: string;
+  companyName: string;
+};
+
+export type TProductSKU = {
+  id: string;
+  img: StaticImageData;
+  productName: string;
+  price: number;
+  soldAmount: number;
+};
+
 export type TMocksResponse = {
-  listSku: Array<{
-    id: string;
-    img: string;
-    productName: string;
-    price: number;
-    soldAmount: number;
-  }>;
+  listSku: Array<TProductSKU>;
   salesTurnover: {
     total: number;
     percentage: number;
     status: string;
   };
-  userInfo: {
-    username: string;
-    companyName: string;
-  };
+  userInfo: TUserInfo;
   purchases: Array<TPurchase>;
 };
 
