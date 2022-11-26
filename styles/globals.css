@@ -31,9 +31,6 @@ a {
 }
 
 /* override date range */
-.rdrStaticRangeLabel{
-  color: black;
-}
 .rdrDefinedRangesWrapper{
   display: none;
 }

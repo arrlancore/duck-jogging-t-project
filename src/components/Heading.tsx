@@ -34,7 +34,7 @@ import Toolbar from "@mui/material/Toolbar";
 import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
-import { addDays, addMonths, startOfMonth } from "date-fns";
+import { addDays, addMonths, startOfMonth, format } from "date-fns";
 import { DateRangePicker, Calendar } from "react-date-range";
 
 const Transition = React.forwardRef(function Transition(
@@ -72,6 +72,10 @@ const filterVariants = [
     type: "custom",
   },
 ];
+
+function formatDate(date) {
+  return format(date, "dd MMMM yyyy");
+}
 
 function getCurrent() {
   const date = new Date();
@@ -217,7 +221,7 @@ function DateFilterDialog({
   );
 }
 
-const Heading = ({ expand, onToggle, onFilterChange, defaultDateRange }) => {
+const Heading = ({ expand, onToggle, onFilterChange, dateRange }) => {
   return (
     <Box
       sx={{
@@ -250,7 +254,9 @@ const Heading = ({ expand, onToggle, onFilterChange, defaultDateRange }) => {
             title={
               <Box>
                 <Typography color="#6A6A6A" variant="subtitle2">
-                  {`Period: 11 September 2018 - 14 September 2018`}
+                  {`Period: ${formatDate(dateRange.startDate)} - ${formatDate(
+                    dateRange.endDate
+                  )}`}
                 </Typography>
               </Box>
             }
@@ -261,6 +267,7 @@ const Heading = ({ expand, onToggle, onFilterChange, defaultDateRange }) => {
         onFilterChange={onFilterChange}
         open={expand}
         onToggle={onToggle}
+        defaultDateRange={dateRange}
       />
     </Box>
   );

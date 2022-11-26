@@ -77,8 +77,8 @@ function DashboardContent() {
   };
 
   const onDateRangeChange = (newRange) => {
-    console.log(newRange);
     setExpandFilter(false);
+    setDateRanges(newRange);
   };
 
   return (
@@ -131,7 +131,7 @@ function DashboardContent() {
             expand={expandFilter}
             onToggle={() => setExpandFilter((prev) => !prev)}
             onFilterChange={onDateRangeChange}
-            defaultDateRange={dateRanges}
+            dateRange={dateRanges}
           />
           <Grid container spacing={3}>
             {/* Chart */}
