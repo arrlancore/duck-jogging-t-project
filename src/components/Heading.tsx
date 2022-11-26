@@ -180,7 +180,7 @@ function DateFilterDialog({
           container
         >
           <Grid sx={{ paddingRight: 4 }}>
-            <List sx={{ marginBottom: 4 }}>
+            <List sx={{ marginBottom: 4, minWidth: 130 }}>
               {filterVariants.map((filter) => (
                 <React.Fragment key={filter.type}>
                   <ListItemButton

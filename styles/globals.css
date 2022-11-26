@@ -1,9 +1,10 @@
+:root{
+  --green: #37B04C
+}
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 a {
@@ -28,6 +29,11 @@ a {
 /* overrides Mui Selected */
 .Mui-selected {
   background-color: #D2D2D2 !important;
+  color: var(--green);
+}
+
+.Mui-selected span {
+  font-weight: bold;
 }
 
 /* override date range */
