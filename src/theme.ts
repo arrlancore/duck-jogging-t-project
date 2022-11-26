@@ -3,7 +3,7 @@ import { createTheme } from "@mui/material/styles";
 import { red } from "@mui/material/colors";
 
 export const openSans = Open_Sans({
-  weight: ["300", "400", "500", "700"],
+  weight: ["300", "400", "500", "600", "700"],
   subsets: ["latin"],
   display: "swap",
   fallback: ["Helvetica", "Arial", "sans-serif"],
@@ -17,6 +17,7 @@ const theme = createTheme({
     },
     secondary: {
       main: "#37B04C",
+      contrastText: "#fff",
     },
     error: {
       main: red.A400,

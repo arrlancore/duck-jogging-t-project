@@ -24,3 +24,16 @@ a {
     background: black;
   }
 }
+
+/* overrides Mui Selected */
+.Mui-selected {
+  background-color: #D2D2D2 !important;
+}
+
+/* override date range */
+.rdrStaticRangeLabel{
+  color: black;
+}
+.rdrDefinedRangesWrapper{
+  display: none;
+}

@@ -2,7 +2,7 @@ import purchase from "./purchase.json";
 
 const userInfo = {
   username: "Joh Wick",
-  companyName: "Advotics",
+  companyName: "Advotics Group",
 };
 
 const salesTurnover = {

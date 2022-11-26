@@ -1,6 +1,5 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -32,6 +31,8 @@ import { TMocks } from "./api/mocks";
 import BackdropComponent from "../src/components/Backdrop";
 import Navbar from "../src/components/Navbar";
 import Sidebar from "../src/components/Sidebar";
+import Heading from "../src/components/Heading";
+import { addDays } from "date-fns";
 
 const drawerWidth: number = 240;
 
@@ -63,16 +64,25 @@ const Drawer = styled(MuiDrawer, {
 
 function DashboardContent() {
   const [open, setOpen] = React.useState(false);
-  const toggleDrawer = () => {
-    setOpen(!open);
-  };
-
+  const [expandFilter, setExpandFilter] = React.useState(false);
+  const [dateRanges, setDateRanges] = React.useState({
+    endDate: new Date(),
+    startDate: addDays(new Date(), -7),
+  });
   const router = useRouter();
   const { data } = useFetch<TMocks>("/api/mocks");
 
+  const toggleDrawer = () => {
+    setOpen((prev) => !prev);
+  };
+
+  const onDateRangeChange = (newRange) => {
+    console.log(newRange);
+    setExpandFilter(false);
+  };
+
   return (
     <Box sx={{ display: "flex" }}>
-      <CssBaseline />
       <BackdropComponent open={!data} />
       <Navbar open={open} drawerWidth={drawerWidth} userInfo={data?.userInfo} />
       <Sidebar
@@ -88,7 +98,7 @@ function DashboardContent() {
             <ListItemText primary="Menu" />
           </ListItemButton>
           <ListItemButton
-            sx={{ background: "#D2D2D2" }} // TODO: make it dynamic when we have more menu
+            selected // TODO: make it dynamic when we have more menu
             onClick={() => router.push("/")}
           >
             <ListItemIcon>
@@ -117,6 +127,12 @@ function DashboardContent() {
       >
         <Toolbar />
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+          <Heading
+            expand={expandFilter}
+            onToggle={() => setExpandFilter((prev) => !prev)}
+            onFilterChange={onDateRangeChange}
+            defaultDateRange={dateRanges}
+          />
           <Grid container spacing={3}>
             {/* Chart */}
             <Grid item xs={12} md={8} lg={9}>
@@ -128,17 +144,6 @@ function DashboardContent() {
                   height: 240,
                 }}
               >
-                <div>
-                  {`Navbar`}
-                  {`Sidebar`}
-                  {/* {`Header`} */}
-                  {`Title`}
-                  {`PeriodFilter`}
-                  {/* {`MarketInsight`} */}
-                  {`SubTitle`}
-                  {`SalesTurnOver`}
-                  {`SummaryProduct`}
-                </div>
                 {/* <Chart /> */}
               </Paper>
             </Grid>

@@ -1,6 +1,8 @@
 const constants = {
-  brandName: "Advotics",
-  brandUrl: "https://www.advotics.com/en/",
+  brandName: "Advotics Group",
+  brandUrl: "https://www.advotics.com/",
+
+  spaceBottom: "36px",
 };
 
 export default constants;
