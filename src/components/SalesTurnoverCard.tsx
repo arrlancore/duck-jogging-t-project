@@ -9,10 +9,17 @@ import { Avatar, CardHeader, Grid, IconButton } from "@mui/material";
 import { MoreVert } from "@mui/icons-material";
 import Image from "next/image";
 import { downArrow, salesTurnover } from "../assets";
+import { formatPrice } from "../utils";
 
-const SalesTurnover = () => {
+type Props = {
+  total: number;
+  percentage: number;
+  status: string;
+};
+
+const SalesTurnover = (props: Props) => {
   return (
-    <Card sx={{ minWidth: 320 }}>
+    <Card sx={{ minWidth: 330 }}>
       <CardHeader
         action={
           <IconButton aria-label="settings">
@@ -26,12 +33,12 @@ const SalesTurnover = () => {
           <Grid xs="9">
             {/* <Image /> */}
             <Typography color="text.secondary" fontWeight="bold" variant="h4">
-              Rp 3,600,000
+              {formatPrice(props.total)}
             </Typography>
             <Box>
-              <Image {...downArrow} alt="down" />
+              <Image {...downArrow} alt={props.status} />
               <Typography display="inline" fontWeight="bold" color="error">
-                12.8
+                {props.percentage}
               </Typography>{" "}
               <Typography
                 display="inline"

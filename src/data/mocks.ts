@@ -3,7 +3,7 @@ import productImage1 from "../assets/product1.jpeg";
 import productImage2 from "../assets/product2.jpeg";
 
 const userInfo = {
-  username: "Joh Wick",
+  username: "Don Wick",
   companyName: "Advotics Group",
 };
 

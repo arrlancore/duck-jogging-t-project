@@ -36,6 +36,11 @@ import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
 import { addDays, addMonths, startOfMonth, format } from "date-fns";
 import { DateRangePicker, Calendar } from "react-date-range";
+import {
+  formatDateForFilter,
+  getCurrentDateArray,
+  getPredefinedRanges,
+} from "../utils";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -73,51 +78,31 @@ const filterVariants = [
   },
 ];
 
-function formatDate(date) {
-  return format(date, "dd MMMM yyyy");
-}
+type DateRange = {
+  startDate: Date;
+  endDate: Date;
+};
 
-function getCurrent() {
-  const date = new Date();
-  return [date.getFullYear(), date.getMonth(), date.getDate()];
-}
+type HeadingProps = {
+  expand: boolean;
+  onToggle: () => void;
+  onFilterChange: (DateRange) => void;
+  dateRange: DateRange;
+};
 
-function getRanges(currentDate = [2022, 1, 1]) {
-  return {
-    config: {
-      minDate: addMonths(new Date(...currentDate), -6),
-      maxDate: new Date(),
-    },
-    today: {
-      startDate: new Date(...currentDate),
-      endDate: new Date(...currentDate),
-    },
-    yesterday: {
-      startDate: addDays(new Date(...currentDate), -1),
-      endDate: addDays(new Date(...currentDate), -1),
-    },
-    last7: {
-      startDate: addDays(new Date(...currentDate), -7),
-      endDate: new Date(...currentDate),
-    },
-    last30: {
-      startDate: addDays(new Date(...currentDate), -30),
-      endDate: new Date(...currentDate),
-    },
-    this_month: {
-      startDate: startOfMonth(new Date(...currentDate)),
-      endDate: new Date(...currentDate),
-    },
-    custom: {},
-  };
-}
+type DateFilterDialogProps = {
+  open: boolean;
+  onToggle: () => void;
+  onFilterChange: (DateRange) => void;
+  defaultDateRange: DateRange;
+};
 
 function DateFilterDialog({
   open,
   onToggle,
   onFilterChange,
   defaultDateRange,
-}) {
+}: DateFilterDialogProps) {
   const [filterType, setFilterType] = useState("last7");
   const [dateRanges, setDateRanges] = useState([
     {
@@ -125,11 +110,8 @@ function DateFilterDialog({
       ...defaultDateRange,
     },
   ]);
-  const currentDate = getCurrent();
-  const createRanges = useCallback(() => {
-    return getRanges(currentDate);
-  }, [currentDate]);
-  const ranges = createRanges();
+  const currentDate = getCurrentDateArray();
+  const ranges = getPredefinedRanges(currentDate);
 
   const onDateRangeChange = (item) => {
     setDateRanges([item.selection]);
@@ -144,7 +126,6 @@ function DateFilterDialog({
   useEffect(() => {
     const range = ranges[filterType];
     setDateRanges((prev) => [{ ...prev[0], ...range }]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterType]);
 
   return (
@@ -221,7 +202,12 @@ function DateFilterDialog({
   );
 }
 
-const Heading = ({ expand, onToggle, onFilterChange, dateRange }) => {
+const Heading = ({
+  expand,
+  onToggle,
+  onFilterChange,
+  dateRange,
+}: HeadingProps) => {
   return (
     <Box
       sx={{
@@ -254,9 +240,9 @@ const Heading = ({ expand, onToggle, onFilterChange, dateRange }) => {
             title={
               <Box>
                 <Typography color="text.secondary" variant="subtitle2">
-                  {`Period: ${formatDate(dateRange.startDate)} - ${formatDate(
-                    dateRange.endDate
-                  )}`}
+                  {`Period: ${formatDateForFilter(
+                    dateRange.startDate
+                  )} - ${formatDateForFilter(dateRange.endDate)}`}
                 </Typography>
               </Box>
             }

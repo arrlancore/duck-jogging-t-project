@@ -30,8 +30,13 @@ import {
   Line,
   ComposedChart,
 } from "recharts";
+import { TPurchase } from "../../pages/api/mocks";
 
-const AveragePurchaseCard = ({ data }) => {
+type Props = {
+  data: TPurchase & { name: string };
+};
+
+const AveragePurchaseCard = ({ data }: Props) => {
   const isMd = useMediaQuery("(min-width:1000px)");
 
   return (

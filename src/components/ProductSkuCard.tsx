@@ -22,10 +22,7 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Typography from "@mui/material/Typography";
 import { downArrow, salesTurnover } from "../assets";
-
-function formatPrice(price) {
-  return "Rp. " + new Intl.NumberFormat().format(price);
-}
+import { formatPrice } from "../utils";
 
 const ProductSKUCard = ({ products, title }) => {
   return (

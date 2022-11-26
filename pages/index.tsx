@@ -43,52 +43,9 @@ import {
 import { ExpandMore } from "@mui/icons-material";
 import AveragePurchaseCard from "../src/components/AveragePurchaseCard";
 import ProductSKUCard from "../src/components/ProductSkuCard";
+import { createDataAPVChart } from "../src/utils";
 
 const drawerWidth: number = 240;
-
-const Drawer = styled(MuiDrawer, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
-  "& .MuiDrawer-paper": {
-    position: "relative",
-    whiteSpace: "nowrap",
-    width: drawerWidth,
-    transition: theme.transitions.create("width", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    boxSizing: "border-box",
-    ...(!open && {
-      overflowX: "hidden",
-      transition: theme.transitions.create("width", {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      width: theme.spacing(7),
-      [theme.breakpoints.up("sm")]: {
-        width: theme.spacing(9),
-      },
-    }),
-  },
-}));
-
-function createDataAPVChart(list: TPurchase[], { startDate, endDate }) {
-  type TPurchaseChart = TPurchase & { name: string };
-
-  const purchaseList: TPurchaseChart[] = [];
-  for (let i = 0; i < list.length; i++) {
-    const data = list[i];
-    const target = new Date(data.date);
-    if (
-      (isAfter(target, startDate) || isEqual(target, startDate)) &&
-      (isBefore(target, endDate) || isEqual(target, endDate))
-    ) {
-      purchaseList.push({ ...data, name: format(target, "dd/MM/yyyy") });
-    }
-  }
-
-  return purchaseList;
-}
 
 function DashboardContent() {
   const [open, setOpen] = React.useState(false);
@@ -144,17 +101,13 @@ function DashboardContent() {
       <Box
         component="main"
         sx={{
-          backgroundColor: (theme) =>
-            theme.palette.mode === "light"
-              ? theme.palette.grey[100]
-              : theme.palette.grey[900],
+          backgroundColor: (theme) => theme.palette.grey[100],
           flexGrow: 1,
           height: "100vh",
           overflow: "auto",
         }}
       >
         <Toolbar />
-
         <Container
           maxWidth="xl"
           sx={{ mt: 4, mb: 4, minHeight: "calc(100% - 164px)" }}
@@ -167,6 +120,7 @@ function DashboardContent() {
           />
           <Grid container spacing={3}>
             <Grid xs={12} sx={{ paddingLeft: "24px", paddingTop: "24px" }}>
+              {/* MARKET INSIGHT SECTION */}
               <Accordion
                 defaultExpanded
                 sx={{ background: "transparent", boxShadow: "none" }}
@@ -191,7 +145,7 @@ function DashboardContent() {
                 >
                   <Grid container spacing={3}>
                     <Grid item xs={12} md={4} lg={3}>
-                      <SalesTurnover />
+                      <SalesTurnover {...data?.salesTurnover} />
                     </Grid>
                     {/* Recent Orders */}
                     <Grid item xs={12}>
