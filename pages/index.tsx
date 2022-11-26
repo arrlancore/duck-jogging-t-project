@@ -21,40 +21,19 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import Image from "next/image";
-import { useRouter } from "next/router";
 import LogoutOutlined from "@mui/icons-material/LogoutOutlined";
 import Avatar from "@mui/material/Avatar";
+import Image from "next/image";
+import { useRouter } from "next/router";
 
 import Copyright from "../src/components/Copyright";
 import { dashboard, logo } from "../src/assets";
 import useFetch from "../src/api/useFetch";
 import { TMocks } from "./api/mocks";
 import BackdropComponent from "../src/components/Backdrop";
+import Navbar from "../src/components/Navbar";
 
 const drawerWidth: number = 240;
-
-interface AppBarProps extends MuiAppBarProps {
-  open?: boolean;
-}
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== "open",
-})<AppBarProps>(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(["width", "margin"], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
 
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -95,48 +74,7 @@ function DashboardContent() {
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <BackdropComponent open={!data} />
-      <AppBar position="absolute" open={open}>
-        <Toolbar
-          sx={{
-            pr: "24px", // keep right padding when drawer closed
-          }}
-        >
-          <Box sx={{ flexGrow: 1 }}>
-            <Image {...logo} width="128" height="32" alt="brand" />
-            <Box sx={{ padding: "0 0.5rem", display: "inline-flex" }}>
-              <Typography variant="subtitle2" color="#5B5B5B">
-                powered by
-              </Typography>
-            </Box>
-            <Image
-              {...logo}
-              width="72"
-              height="18"
-              alt="powered-brand"
-              style={{
-                position: "relative",
-                top: 4,
-              }}
-            />
-          </Box>
-          <>
-            <Box sx={{ textAlign: "right" }}>
-              <Typography variant="subtitle2" color="#727272">
-                Username
-              </Typography>
-              <Typography variant="caption" color="#727272">
-                Company Name
-              </Typography>
-            </Box>
-            <IconButton color="default">
-              <Avatar />
-            </IconButton>
-            <IconButton color="default">
-              <LogoutOutlined />
-            </IconButton>
-          </>
-        </Toolbar>
-      </AppBar>
+      <Navbar open={open} drawerWidth={drawerWidth} userInfo={data?.userInfo} />
       <Drawer variant="permanent" open={open}>
         <Toolbar
           sx={{
