@@ -16,7 +16,6 @@
     "@mui/icons-material": "latest",
     "@mui/material": "latest",
     "@next/font": "latest",
-    "@sentry/nextjs": "^7.37.1",
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",
     "@types/react-date-range": "^1.4.4",
